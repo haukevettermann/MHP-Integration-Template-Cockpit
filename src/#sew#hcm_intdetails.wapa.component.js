@@ -1,0 +1,3 @@
+sap.ui.define(["sap/suite/ui/generic/template/lib/AppComponent"],function(e){return e.extend("com.sew.integration.hr.sewintegrationmaintain.Component",{metadata:{manifest:"json"}})});                                                                        
+//# sourceMappingURL=maps/Component.js.map                                                                                                                                                                                                                     
+                                                                                                                                                                                                                                                               

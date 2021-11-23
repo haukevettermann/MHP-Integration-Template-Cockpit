@@ -1,9 +1,0 @@
-sap.ui.define(["sap/ui/core/util/MockServer","sap/base/Log","sap/base/util/UriParameters","sap/ui/util/XMLHelper"],function(e,t,r,a){"use strict";var i,n="comzmhp_integration/hr/mhpintegrationmaintain/";return{init:function(){var o=new r(window.location.+
-href),s=sap.ui.require.toUrl("comzmhp_integration/hr/mhpintegrationmaintain/localService/mockdata"),u=sap.ui.require.toUrl(n+"manifest.json"),p=o.get("errorType"),c="badRequest"===p?400:500,l=jQuery.sap.syncGetJSON(u).data,f=l["sap.app"].dataSources,g=f.+
-mainService,d=sap.ui.require.toUrl(n+g.settings.localUri.replace(".xml","")+".xml"),m=/.*\/$/.test(g.uri)?g.uri:g.uri+"/",h=g.settings.annotations;i=new e({rootUri:m}),e.config({autoRespond:!0,autoRespondAfter:o.get("serverDelay")||1e3}),i.simulate(d,{sM+
-ockdataBaseUrl:s,bGenerateMissingMockData:!0});var w=i.getRequests(),x=function(e,t,r){r.response=function(r){r.respond(e,{"Content-Type":"text/plain;charset=utf-8"},t)}};o.get("metadataError")&&w.forEach(function(e){e.path.toString().indexOf("$metadata"+
-)>-1&&x(500,"metadata Error",e)}),p&&w.forEach(function(e){e.path.toString().indexOf("IntegrationRunSet")>-1&&x(c,p,e)}),i.start(),t.info("Running the app with mock data"),h&&h.length>0&&h.forEach(function(t){var r=f[t],i=r.uri,o=sap.ui.require.toUrl(n+r+
-.settings.localUri.replace(".xml","")+".xml");new e({rootUri:i,requests:[{method:"GET",path:new RegExp("([?#].*)?"),response:function(e){sap.ui.require("jquery.sap.xml");var t=jQuery.sap.sjax({url:o,dataType:"xml"}).data;return e.respondXML(200,{},a.seri+
-alize(t)),!0}}]}).start()})},getMockServer:function(){return i}}});
-//# sourceMappingURL=../maps/localService/mockserver.js.map
-

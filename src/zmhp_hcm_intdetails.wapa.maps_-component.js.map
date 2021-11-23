@@ -1,3 +1,0 @@
-{"version":3,"sources":["Component.js"],"names":["sap","ui","define","AppComponent","extend","metadata","manifest"],"mappings":"AAAAA,IAAIC,GAAGC,QAAQ,kDAAmD,SAAUC,GAC3E,MAAOA,GAAaC,OAAO,2DAC1BC,UACCC,SAAY","file":"../Component.js","sourcesContent":["sap+
-.ui.define([\"sap/suite/ui/generic/template/lib/AppComponent\"], function (AppComponent) {\r\n\treturn AppComponent.extend(\"com.mhp.integration.hr.mhpintegrationmaintain.Component\", {\r\n\t\tmetadata: {\r\n\t\t\t\"manifest\": \"json\"\r\n\t\t}\r\n\t});+
-\r\n});"]}
