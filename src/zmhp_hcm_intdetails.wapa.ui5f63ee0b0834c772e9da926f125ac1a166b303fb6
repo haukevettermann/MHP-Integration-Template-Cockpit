@@ -1,0 +1,53 @@
+sap.ui.controller("com.mhp.integration.hr.mhpintegrationmaintain.controller.ExtendedAnalytical", {
+	
+	/**
+	 * Implemented by Christoph Kuczera due to&nbsp;
+	 * 1. Auto refresh all dependant tables after successfull save operation
+	 * 2. Bug in UI5 1.61.13 which leads to supresse of error message in table edit mode.
+	 *		We had to add the errros and display the message popover button manually
+	 */&nbsp;
+	onAfterRendering: function() {
+		var oTransactionController = this.extensionAPI.getTransactionController();
+		var oMessageManager = sap.ui.getCore().getMessageManager();
+		var oMessageButton = this.getView().byId("showMessages");
+		var oVersion = sap.ui.getVersionInfo("sap.m");
+		
+		var bMessageFixEnabled = false;
+		if(oMessageButton && oVersion && oVersion.version && oVersion.version.startsWith("1.6")) {
+			bMessageFixEnabled = true;
+		}
+		
+		oTransactionController.attachAfterSave(function(oEvent) {
+			if(bMessageFixEnabled) {
+				oMessageButton.setVisible(false);
+				oMessageManager.removeAllMessages();
+			}
+			
+			oEvent.saveEntityPromise.then(function() {
+				this.extensionAPI.refresh();
+			}.bind(this), function(oResponse) {
+				if(bMessageFixEnabled) {
+					var sTarget = this.getView().getBindingContext().getPath();
+					if(!sTarget.startsWith("/FieldChangeSet")) {
+						var oErrors = JSON.parse(oResponse.response.responseText);
+						var oErrorDetails = oErrors.error.innererror.errordetails;
+						
+						oErrorDetails.forEach(function(oObject) {
+							oMessageManager.addMessages(new sap.ui.core.message.Message({
+								type: sap.ui.core.MessageType.Error,
+								message: oObject.message,
+								code: oObject.code,
+								target: sTarget
+							}));
+						}, this);
+						oMessageButton.setVisible(true);
+						jQuery.sap.delayedCall(500, this, function() {
+							oMessageButton.firePress();
+						});
+					}
+				}
+			}.bind(this));
+			
+		}.bind(this));
+	}
+});

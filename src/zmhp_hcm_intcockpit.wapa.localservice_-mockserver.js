@@ -1,0 +1,9 @@
+sap.ui.define(["sap/ui/core/util/MockServer","sap/base/util/UriParameters","sap/base/Log","sap/ui/util/XMLHelper"],function(e,t,a,r){"use strict";var n,o="com.mhp.integration.hr.mhpintegrationcockpit/";return{init:function(){var i=new t(window.location.h+
+ref),s=jQuery.sap.getModulePath("com.mhp.integration.hr.mhpintegrationcockpit/localService/mockdata"),u=jQuery.sap.getModulePath(o+"manifest",".json"),c=i.get("errorType"),p="badRequest"===c?400:500,l=jQuery.sap.syncGetJSON(u).data,d=l["sap.app"].dataSou+
+rces,g=d.mainService,f=jQuery.sap.getModulePath(o+g.settings.localUri.replace(".xml",""),".xml"),h=/.*\/$/.test(g.uri)?g.uri:g.uri+"/",m=g.settings.annotations;n=new e({rootUri:h}),e.config({autoRespond:!0,autoRespondAfter:i.get("serverDelay")||1e3}),n.s+
+imulate(f,{sMockdataBaseUrl:s,bGenerateMissingMockData:!0});var w=n.getRequests(),y=function(e,t,a){a.response=function(a){a.respond(e,{"Content-Type":"text/plain;charset=utf-8"},t)}};i.get("metadataError")&&w.forEach(function(e){e.path.toString().indexO+
+f("$metadata")>-1&&y(500,"metadata Error",e)}),c&&w.forEach(function(e){e.path.toString().indexOf("DV_INTCENTER")>-1&&y(p,c,e)}),n.start(),a.info("Running the app with mock data"),m.forEach(function(t){var a=d[t],n=a.uri,i=jQuery.sap.getModulePath(o+a.se+
+ttings.localUri.replace(".xml",""),".xml");new e({rootUri:n,requests:[{method:"GET",path:new RegExp(""),response:function(e){var t=jQuery.sap.sjax({url:i,dataType:"xml"}).data;return e.respondXML(200,{},r.serialize(t)),!0}}]}).start()})},getMockServer:fu+
+nction(){return n}}});
+//# sourceMappingURL=../maps/localService/mockserver.js.map
+

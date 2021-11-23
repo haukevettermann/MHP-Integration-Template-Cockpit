@@ -1,2 +1,0 @@
-{"version":3,"sources":["Component.js"],"names":["sap","ui","define","AppComponent","extend","metadata","manifest"],"mappings":"AAAAA,IAAIC,GAAGC,QAAQ,mCAAoC,SAAUC,GAC5D,MAAOA,GAAaC,OAAO,0DAC1BC,UACCC,SAAY","file":"../Component.js","sourcesContent":["sap+
-.ui.define([\"sap/ui/generic/app/AppComponent\"], function (AppComponent) {\r\n\treturn AppComponent.extend(\"com.sew.integration.hr.sewintegrationcockpit.Component\", {\r\n\t\tmetadata: {\r\n\t\t\t\"manifest\": \"json\"\r\n\t\t}\r\n\t});\r\n});"]}       
